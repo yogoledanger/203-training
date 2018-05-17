@@ -9,12 +9,15 @@ Tools
 
 Finance
 * smile volatility
-* CVA
-* stochastic process diffusion
 * ACP
 * convex optimization
 * regression
+* stochastic process diffusion
+* option pricing
 * Monte-Carlo
+* CVA
+
+
 
 
 
