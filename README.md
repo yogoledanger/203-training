@@ -9,7 +9,7 @@ Tools
 
 Finance
 * smile volatility
-* ACP
+* PCA
 * convex optimization
 * regression
 * stochastic process diffusion
