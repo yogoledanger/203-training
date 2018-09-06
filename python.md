@@ -1,15 +1,17 @@
 # Basics
 
-## Tools
+## Some hints
+
+### Tools
 Anaconda, python version 3, IPython, Spyder...
 
-## Zen of Python
+### Zen of Python
 
 ```python
 import this
 ```
 
-## Data Types and Containers
+### Data Types and Containers
 int, float, strings, boolean
 tuples, lists, dicts, sets
 ```python
@@ -52,12 +54,21 @@ variable as reference
 
 mutable vs immutable
 
-# Control Structures
+## Control Structures
 
 ```python
+for s in ('a', 'b', 'c'):
+    print(s)
+
+
+for s in 'hello':
+    print(s)
+
+
 for i in l:
     if i % 2:
         print(i)
+
 
 #modulo:
 9 % 2 == 1
@@ -71,10 +82,17 @@ i = 0
 while i < 10:
     print(i)
     i += 1
+
+i = 0
+while True:
+    i += 1
+    print(i)
+    if i // 4:
+        break
 ```
 
 
-## functions
+### Functions
 
 ```python
 def fibo(n):
@@ -89,17 +107,18 @@ def fibo(n):
 
 
 
-list comprehension
+### List comprehension
 ```python
 [i % 2 for i in range(10)]
 
 [i for i in range(10) if not i % 2]
 ```
 
-# Exercises
+## Exercises
 
-## Pricing of a european call option with the Black Scholes formula
+### Pricing of a european call option with the Black Scholes formula
 Formula available here: https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model
+![black scholes](./black_scholes.png)
 
 ```python
 
@@ -135,9 +154,124 @@ c = bsm_call_value(100, 110, 2, 0.02, 0.1)
 assert round(c, 3)== 3.391
 ```
 
+### Toss a coin with a bias
+
+```python
+def toss():
+    head = 0
+    tail = 1
+    bias=0.1
+    #return head with a proba of 0.5 + bias
+
+def find_the_bias():
+    #call toss and use monte-carlo
+
+```
+
+# Advanced
+
 ## Functional programming
 
+```python
+def square(x):
+    return x**2
+
+def compute(func, values):
+    return [func(i) for i in values]
+
+compute(square, range(4))
+
+map(square, range(4))
+
+map(lambda x: x**2, range(4))
+
+map(len, ["Lisa", "Rachid", "Franck"])
+
+sum = reduce(lambda a,x: a+x, range(4))
+concat = reduce(lambda a,x: a+x, 'hello')
+
+reduce(lambda a,x: a+2*x, '1234')
+reduce(lambda a,x: 2*a+x, '1234')
+
+filter(lambda x: not x %2, range(10)) shorter: range(10)[::2]
+
+people = [{'name': 'Lisa', 'height': 160},
+          {'name': 'Rachid', 'height': 180},
+          {'name': 'Franck'}]
+#How to get average height ?
+```
 ## Generators
 
+```python
+def count(n):
+    i = 0
+    while i < n:
+        i += 1
+        yield i
+
+a = count(10)
+next(a)
+
+b = (x**2 for x in range(10))
+list(b)
+list(b) #second time
+```
+Exercise: Re-write fibonacci as a generator with no limit
+
 ## Object oriented programming
+
+### Simple class
+```python
+class Car(object):
+    def __init__(self, buying_price):
+        self.buying_price = buying_price
+
+    def price(age_in_year):
+        assert type(age_in_year) == int
+        pass
+        #every year, it decreases by 20%
+
+prius = Car(20000)
+prius.price(3)
+prius.price(7)
+```
+
+### With abstract class
+
+```python
+from functools import reduce
+from abc import ABC, abstractmethod
+
+class Trade(ABC):
+    """docstring for Product"""
+    def __init__(self, expires):
+        self.expires = expires
+
+    @abstractmethod
+    def pv(self, asofdate):
+        pass
+
+class Swap(Trade):
+    def __init__(self, expires, notional, rate):
+        super().__init__(expires)
+        self.notional = notional
+        self.rate = rate
+
+    def pv(self, asofdate):
+        return 1000
+
+class Call(Trade):
+    def __init__(self, expires, strike):
+        super().__init__(expires)
+        self.strike = strike
+
+    def pv(self, asofdate):
+        return 120
+
+trade1 = Swap(2, 1000, 0.05)
+trade2 = Call(2, 110)
+asofdate = 2
+portfolio = (trade1, trade2)
+sum = reduce(lambda a,x: a+x, [p.pv(asofdate) for p in portfolio])
+
 
