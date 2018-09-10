@@ -3,7 +3,12 @@
 ## Some hints
 
 ### Tools
-Anaconda, python version 3, IPython, Spyder...
+Anaconda, IPython, Spyder, Jupyter notebook...
+
+### Versions and interpreters
+
+v2.7 and v3.7
+cpython, jython...
 
 ### Zen of Python
 
@@ -12,8 +17,10 @@ import this
 ```
 
 ### Data Types and Containers
+
 int, float, strings, boolean
 tuples, lists, dicts, sets
+
 ```python
 i = 1
 price = 1435.9
@@ -49,10 +56,30 @@ d['k3']
 
 s = {1, 2, 3}
 s = set([1, 2, 2, 3])
-```
-variable as reference
 
-mutable vs immutable
+s.remove(1)
+s.discard(1)
+
+A = {1, 2, 3, 4, 5}
+B = {4, 5, 6, 7, 8}
+
+# intersection
+A.intersection(B)
+A & B
+
+# union
+A | B
+A.union(B)
+
+# difference
+A - B
+A.difference(B)
+```
+### Variable as reference
+
+id(), is
+
+### Mutable vs immutable
 
 ## Control Structures
 
@@ -105,6 +132,18 @@ def fibo(n):
     return output
 ```
 
+### global variables
+
+```python
+a = 1
+
+def change_a():
+    #global a
+    a = 2
+
+change_a()
+print(a)
+```
 
 
 ### List comprehension
@@ -273,5 +312,76 @@ trade2 = Call(2, 110)
 asofdate = 2
 portfolio = (trade1, trade2)
 sum = reduce(lambda a,x: a+x, [p.pv(asofdate) for p in portfolio])
+```
+
+## Files and serialization
+
+### Handling files
+
+```python
+with open('testfile.txt', 'w') as f: 
+    f.write('hi there\n')
+    f.write('I love Python')
+
+with open('testfile.txt', 'r') as f: 
+    for line in f: 
+        print(line)
+```
+
+###Pickle
+
+```python
+import numpy as np
+
+a = np.arange(1000)
+
+import pickle
+
+file=open("./data.pkl","wb") # open with write permission
+pickle.dump(a, file)
+file.close()
+
+infile = open("./data.pkl",'rb')
+b = pickle.load(infile)
+infile.close()
+```
+
+## Pickle and bz2
+
+```python
+import numpy as np
+
+a = np.arange(1000)
+
+import pickle
+import bz2
+
+sfile = bz2.BZ2File('smallerfile', 'w')
+pickle.dump(a,sfile)
+sfile.close()
+
+insfile = bz2.BZ2File('smallerfile', 'r')
+b = pickle.load(insfile)
+insfile.close()
+```
+
+## Introduction to multithreading
+
+```python
+import threading
+import time
+
+
+class MyThread(threading.Thread):
+    def run(self):
+        print("{} started!".format(self.getName()))              # "Thread-x started!"
+        time.sleep(1)                                      # Pretend to work for a second
+        print("{} finished!".format(self.getName()))             # "Thread-x finished!"
+
+for x in range(4):                                     # Four times...
+    mythread = MyThread(name = "Thread-{}".format(x + 1))  # ...Instantiate a thread and pass a unique ID to it
+    mythread.start()                                   # ...Start the thread
+    time.sleep(.9)                                     # ...Wait 0.9 seconds before starting another
+```
 
 

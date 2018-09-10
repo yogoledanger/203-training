@@ -41,7 +41,7 @@ A.dot(B)                    # matrix product
 np.dot(A, B)                # another matrix product
 
 a = np.random.random((2,3))
-a.sum(), a.min(), a.max
+a.sum(), a.min(), a.max()
 
 b = np.arange(12).reshape(3,4)
 b.cumsum(axis=1)                         # cumulative sum along each row
