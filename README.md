@@ -11,5 +11,13 @@
 
 
 
+## 2019-2020
 
+### Project (group of 2 or 3 people)
+* Option pricing - monte carlo method (Choose a convenient option for that)
+* Parallelism (Futures, Joblib...)
+* [Dash](https://dash.plot.ly/) as a Graphical User interface (Form to fill the parameters, display the pricing and draw some trajectories)
+Expected by 6th December
 
+### Exam
+to be planned
