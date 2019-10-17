@@ -23,5 +23,6 @@ Expected by 6th December
 ### Exam
 to be planned
 
-### Try out codeboard.io
-course #3: https://codeboard.io/projects/134893
+### Try out collaborative tools
+* course #3: https://codeboard.io/projects/134893
+* https://codeshare.io/
